@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📸 Clawra 相册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #18181B;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #18181B 0%, #27272A 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid #2563EB;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2563EB, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #A1A1AA;
+            font-size: 1.1em;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2563EB;
+        }
+
+        .stat-label {
+            color: #71717A;
+            font-size: 0.9em;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background: #0F0F0F;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: #27272A;
+            color: #A1A1AA;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #3F3F46;
+            color: #ffffff;
+        }
+
+        .nav-btn.active {
+            background: #2563EB;
+            color: #ffffff;
+        }
+
+        /* Gallery */
+        .gallery {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2563EB;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-card {
+            background: #27272A;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .photo-info {
+            padding: 15px;
+        }
+
+        .photo-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .photo-desc {
+            color: #A1A1AA;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .photo-meta {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: #71717A;
+            font-size: 0.85em;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 3em;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #2563EB;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #0F0F0F;
+            color: #71717A;
+            border-top: 1px solid #27272A;
+        }
+
+        .footer a {
+            color: #2563EB;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 1.5em;
+            }
+
+            .nav {
+                padding: 10px;
+            }
+
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.9em;
+            }
+
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 15px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .photo-card {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📸 Clawra 相册</h1>
+        <p>奥尔加玛丽·阿尼姆斯菲亚的自拍集</p>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="total-count">0</div>
+                <div class="stat-label">总自拍</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8</div>
+                <div class="stat-label">情感风格</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4</div>
+                <div class="stat-label">季节主题</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav">
+        <button class="nav-btn active" onclick="showCategory('all')">全部</button>
+        <button class="nav-btn" onclick="showCategory('emotions')">🎭 情感系列</button>
+        <button class="nav-btn" onclick="showCategory('seasons')">🌸 季节系列</button>
+        <button class="nav-btn" onclick="showCategory('styles')">👔 风格系列</button>
+        <button class="nav-btn" onclick="showCategory('daily')">🏠 日常</button>
+    </div>
+
+    <div class="gallery" id="gallery">
+        <!-- 动态加载内容 -->
+    </div>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="">
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📷 Powered by <a href="https://github.com/KomeijiSai/Chaldea" target="_blank">Chaldea System</a></p>
+        <p style="margin-top: 10px;">最后更新: 2026-02-26 | Created with 💙 by Olga Marie</p>
+    </div>
+
+    <script>
+        // 照片数据
+        const photos = {
+            emotions: [
+                {
+                    file: '2026-02-26_gentle.png',
+                    title: '🌸 温柔系',
+                    desc: '清晨窗边读书，柔和光线',
+                    size: '1.4M',
+                    mood: '温暖、平静'
+                },
+                {
+                    file: '2026-02-26_cute.png',
+                    title: '🎀 可爱系',
+                    desc: '游乐园比心，活泼俏皮',
+                    size: '1.4M',
+                    mood: '俏皮、元气'
+                },
+                {
+                    file: '2026-02-26_mature.png',
+                    title: '👠 成熟系',
+                    desc: '屋顶酒吧夜景，优雅干练',
+                    size: '1.1M',
+                    mood: '专业、自信'
+                },
+                {
+                    file: '2026-02-26_sexy.png',
+                    title: '💋 性感系',
+                    desc: '海边夕阳，金色时光',
+                    size: '1.3M',
+                    mood: '魅力、自信'
+                },
+                {
+                    file: '2026-02-26_sad.png',
+                    title: '😢 难过系',
+                    desc: '雨中撑伞，忧郁孤独',
+                    size: '1.4M',
+                    mood: '忧郁、脆弱'
+                },
+                {
+                    file: '2026-02-26_happy.png',
+                    title: '😄 开心系',
+                    desc: '生日派对，庆祝欢笑',
+                    size: '1.2M',
+                    mood: '喜悦、幸福'
+                },
+                {
+                    file: '2026-02-26_proud.png',
+                    title: '🌟 求表扬系',
+                    desc: '展示成就，期待认可',
+                    size: '1.3M',
+                    mood: '自豪、期待'
+                },
+                {
+                    file: '2026-02-26_comfort.png',
+                    title: '🤗 求安慰系',
+                    desc: '抱枕头委屈，需要抱抱',
+                    size: '1.3M',
+                    mood: '委屈、需要抱抱'
+                }
+            ],
+            seasons: [
+                {
+                    file: '2026-02-26_spring-cherry-blossom.png',
+                    title: '🌸 春日樱花',
+                    desc: '樱花树下，粉色花瓣飘落',
+                    size: '1.5M',
+                    mood: '甜美、清新'
+                },
+                {
+                    file: '2026-02-26_summer-beach.png',
+                    title: '🌞 夏日海滩',
+                    desc: '蓝色海洋，活力四射',
+                    size: '1.4M',
+                    mood: '活力、青春'
+                },
+                {
+                    file: '2026-02-26_summer-night-festival.png',
+                    title: '🎆 夏夜烟火',
+                    desc: '浴衣，背景烟火绽放',
+                    size: '1.5M',
+                    mood: '浪漫、热闹'
+                },
+                {
+                    file: '2026-02-26_autumn-ginkgo.png',
+                    title: '🍂 秋日银杏',
+                    desc: '金黄色银杏叶，温暖毛衣',
+                    size: '1.5M',
+                    mood: '温暖、文艺'
+                },
+                {
+                    file: '2026-02-26_autumn-leaves.png',
+                    title: '🍂 深秋落叶',
+                    desc: '风衣，公园散步',
+                    size: '1.4M',
+                    mood: '忧郁、诗意'
+                },
+                {
+                    file: '2026-02-26_winter-snow.png',
+                    title: '❄️ 冬日雪景',
+                    desc: '雪景，毛绒外套',
+                    size: '1.7M',
+                    mood: '纯净、梦幻'
+                },
+                {
+                    file: '2026-02-26_christmas-vibes.png',
+                    title: '🎄 圣诞氛围',
+                    desc: '红色毛衣，温馨节日',
+                    size: '1.4M',
+                    mood: '温馨、节日'
+                }
+            ],
+            styles: [
+                {
+                    file: '2026-02-26_professional-office.png',
+                    title: '💼 职场精英',
+                    desc: '西装套裙，现代办公室',
+                    size: '1.2M',
+                    mood: '干练、专业'
+                },
+                {
+                    file: '2026-02-26_cafe-time.png',
+                    title: '☕ 咖啡时光',
+                    desc: '休闲装，惬意咖啡厅',
+                    size: '1.3M',
+                    mood: '休闲、惬意'
+                },
+                {
+                    file: '2026-02-26_hanfu-elegant.png',
+                    title: '👘 古典优雅',
+                    desc: '传统汉服，古典韵味',
+                    size: '1.4M',
+                    mood: '古典、优雅'
+                }
+            ],
+            daily: [
+                {
+                    file: '2026-02-26_home-mirror-selfie.png',
+                    title: '🏠 居家镜面自拍',
+                    desc: '在家对着镜子自拍',
+                    size: '1.3M',
+                    mood: '日常、自然'
+                },
+                {
+                    file: '2026-02-26_working-late.png',
+                    title: '🌙 深夜工作',
+                    desc: '深夜办公室加班',
+                    size: '1.1M',
+                    mood: '认真、努力'
+                }
+            ]
+        };
+
+        let currentCategory = 'all';
+
+        // 渲染相册
+        function renderGallery(category = 'all') {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+
+            let categories = [];
+            if (category === 'all') {
+                categories = [
+                    { key: 'emotions', title: '🎭 情感系列' },
+                    { key: 'seasons', title: '🌸 季节系列' },
+                    { key: 'styles', title: '👔 风格系列' },
+                    { key: 'daily', title: '🏠 日常' }
+                ];
+            } else {
+                const titles = {
+                    emotions: '🎭 情感系列',
+                    seasons: '🌸 季节系列',
+                    styles: '👔 风格系列',
+                    daily: '🏠 日常'
+                };
+                categories = [{ key: category, title: titles[category] }];
+            }
+
+            let totalCount = 0;
+
+            categories.forEach(cat => {
+                const photosList = photos[cat.key];
+                if (!photosList || photosList.length === 0) return;
+
+                totalCount += photosList.length;
+
+                const section = document.createElement('div');
+                section.className = 'section';
+
+                section.innerHTML = `
+                    <h2 class="section-title">${cat.title}</h2>
+                    <div class="grid">
+                        ${photosList.map(photo => `
+                            <div class="photo-card" onclick="openModal('${photo.file}')">
+                                <img src="${photo.file}" alt="${photo.title}" loading="lazy">
+                                <div class="photo-info">
+                                    <div class="photo-title">${photo.title}</div>
+                                    <div class="photo-desc">${photo.desc}</div>
+                                    <div class="photo-meta">
+                                        <span>${photo.mood}</span>
+                                        <span>${photo.size}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                gallery.appendChild(section);
+            });
+
+            // 更新统计
+            if (category === 'all') {
+                document.getElementById('total-count').textContent = totalCount;
+            } else {
+                document.getElementById('total-count').textContent = photos[currentCategory]?.length || totalCount;
+            }
+        }
+
+        // 显示分类
+        function showCategory(category) {
+            currentCategory = category;
+
+            // 更新按钮状态
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            renderGallery(category);
+        }
+
+        // 打开模态框
+        function openModal(imgSrc) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-img');
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+        }
+
+        // 键盘事件
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // 初始化
+        renderGallery();
+    </script>
+</body>
+</html>
