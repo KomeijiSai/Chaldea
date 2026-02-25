@@ -4,8 +4,15 @@
 
 cd /root/.openclaw/workspace
 
-# Todoist 配置
-TODOIST_TOKEN="88cce657cb43ae889b41a5e4e4003e3fe0e87c93"
+# 从环境变量读取 Token
+source .env 2>/dev/null
+TODOIST_TOKEN="${TODOIST_TOKEN:-}"
+
+if [ -z "$TODOIST_TOKEN" ]; then
+    echo "❌ 错误: TODOIST_TOKEN 未设置"
+    exit 1
+fi
+
 PROJECT_ID="6CrgFVFHFmcxgrF5"
 IN_PROGRESS_SECTION="6g4xvm8fH4q4wcv5"
 
