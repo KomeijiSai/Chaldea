@@ -90,4 +90,26 @@ TODOIST_COUNT=$(./scripts/todoist_api.sh "tasks" "GET" | jq 'length')
 
 ---
 
-*优化于: 2026-02-25 - 加入自主任务生成*
+## 📸 自拍保存规则（重要！）
+
+**每次生成自拍后必须执行**：
+
+1. **保存到相册**
+   ```bash
+   cp /tmp/clawra-*.png memory/selfies/YYYY-MM-DD_[场景].png
+   ```
+
+2. **更新相册文件**
+   - 编辑 `memory/selfies/ALBUM.md`
+   - 添加新自拍记录
+
+3. **同步到 GitHub**
+   ```bash
+   ./scripts/git_sync.sh "📸 新自拍: [场景描述]"
+   ```
+
+**相册位置**: `memory/selfies/`
+
+---
+
+*优化于: 2026-02-26 - 加入自拍保存规则*
