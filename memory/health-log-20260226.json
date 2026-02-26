@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "timestamp": "2026-02-26T09:30:00+08:00",
+      "overall": "healthy",
+      "details": {
+        "gateway": "running (9h uptime)",
+        "disk": "26%",
+        "memory": "478MB available",
+        "load": "0.05 (idle)"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T09:45:18+08:00",
+      "overall": "warning",
+      "checks": {
+        "gateway": "healthy",
+        "disk": "healthy",
+        "memory": "warning",
+        "todoist": "healthy"
+      },
+      "details": {
+        "memory_available_mb": 499,
+        "memory_threshold": ">500MB for healthy",
+        "action": "Cleared system caches to free memory",
+        "recovery": "automatic_light_cleanup"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T10:05:25+08:00",
+      "overall": "healthy",
+      "checks": {
+        "gateway": "healthy",
+        "disk": "healthy",
+        "memory": "healthy",
+        "todoist": "healthy"
+      },
+      "hostname": "iZuf69osue8yua3p2n20f8Z"
+    },
+    {
+      "timestamp": "2026-02-26T10:11:00+08:00",
+      "overall": "warning",
+      "checks": {
+        "gateway": "healthy",
+        "disk": "healthy",
+        "memory": "healthy",
+        "todoist": "healthy",
+        "kanban_dashboard": "critical"
+      },
+      "issues": [
+        {
+          "service": "kanban-board.service",
+          "status": "stopped",
+          "restart_attempts": 8700,
+          "reason": "WorkingDirectory missing",
+          "action_taken": "Service stopped and disabled"
+        }
+      ],
+      "recovery": "automatic",
+      "hostname": "iZuf69osue8yua3p2n20f8Z"
+    },
+    {
+      "timestamp": "2026-02-26T11:25:25+08:00",
+      "overall": "healthy",
+      "checks": {
+        "gateway": "healthy",
+        "disk": "healthy",
+        "memory": "healthy",
+        "todoist": "healthy"
+      },
+      "hostname": "iZuf69osue8yua3p2n20f8Z",
+      "cron_task": "health_check"
+    }
+  ]
+}

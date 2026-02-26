@@ -5,7 +5,15 @@
 ENDPOINT=$1
 METHOD=$2
 DATA=$3
-TOKEN="88cce657cb43ae889b41a5e4e4003e3fe0e87c93"
+
+# 从环境变量读取 Token
+source /root/.openclaw/workspace/.env 2>/dev/null
+TOKEN="${TODOIST_TOKEN:-}"
+
+if [ -z "$TOKEN" ]; then
+    echo "❌ 错误: TODOIST_TOKEN 未设置，请检查 .env 文件"
+    exit 1
+fi
 
 if [ -z "$DATA" ]; then
   curl -s -X "$METHOD" "https://api.todoist.com/api/v1/$ENDPOINT" \

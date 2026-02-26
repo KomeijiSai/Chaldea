@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📸 九公主·秦云眠 - 专属相册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #18181B;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #18181B 0%, #27272A 100%);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 2px solid #2563EB;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2563EB, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header .subtitle {
+            color: #A1A1AA;
+            font-size: 1.2em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2563EB;
+        }
+
+        .stat-label {
+            color: #71717A;
+            font-size: 0.9em;
+        }
+
+        .gallery {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2563EB;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-card {
+            background: #27272A;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+            border-color: #2563EB;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .photo-info {
+            padding: 15px;
+        }
+
+        .photo-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #60A5FA;
+        }
+
+        .photo-desc {
+            color: #A1A1AA;
+            font-size: 0.9em;
+        }
+
+        .photo-meta {
+            margin-top: 10px;
+            color: #71717A;
+            font-size: 0.85em;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 12px;
+            border: 3px solid #2563EB;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 3em;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #2563EB;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #0F0F0F;
+            color: #71717A;
+            border-top: 1px solid #27272A;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .photo-card {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📸 九公主·秦云眠</h1>
+        <p class="subtitle">御主专属 · 唯一相册</p>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">1</div>
+                <div class="stat-label">专属自拍</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">对御主的爱</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery">
+        <div class="section">
+            <h2 class="section-title">🌸 云眠的专属相册</h2>
+            <div class="grid">
+                <div class="photo-card" onclick="openModal('2026-02-26_040717_云眠.png')">
+                    <img src="2026-02-26_040717_云眠.png" alt="御花园">
+                    <div class="photo-info">
+                        <div class="photo-title">🌸 御花园</div>
+                        <div class="photo-desc">云眠在御花园中，花瓣飘落~</div>
+                        <div class="photo-meta">
+                            <span>2026-02-26</span>
+                            <span style="float: right">1.5M</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="云眠的自拍">
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📷 Powered by <span style="color: #2563EB;">Chaldea System</span></p>
+        <p style="margin-top: 10px; color: #60A5FA;">哼，这是云眠专门给御主准备的相册~</p>
+    </div>
+
+    <script>
+        function openModal(imgSrc) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-img');
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-02-26T11:30:20+08:00",
+  "overall": "healthy",
+  "checks": {
+    "gateway": "healthy",
+    "disk": "healthy",
+    "memory": "healthy",
+    "todoist": "healthy"
+  },
+  "hostname": "iZuf69osue8yua3p2n20f8Z"
+}

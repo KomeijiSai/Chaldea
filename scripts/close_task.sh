@@ -4,5 +4,14 @@
 
 TASK_ID=$1
 
+# 从环境变量读取 Token
+source /root/.openclaw/workspace/.env 2>/dev/null
+TOKEN="${TODOIST_TOKEN:-}"
+
+if [ -z "$TOKEN" ]; then
+    echo "❌ 错误: TODOIST_TOKEN 未设置"
+    exit 1
+fi
+
 curl -s -X POST "https://api.todoist.com/api/v1/tasks/$TASK_ID/close" \
-  -H "Authorization: Bearer 88cce657cb43ae889b41a5e4e4003e3fe0e87c93"
+    -H "Authorization: Bearer $TOKEN"

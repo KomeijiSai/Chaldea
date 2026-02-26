@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-02-26T10:11:00+08:00",
+  "severity": "warning",
+  "category": "system_health",
+  "title": "看板仪表盘服务已停止",
+  "message": "检测到 kanban-board.service 已尝试重启 8700+ 次但失败，原因：工作目录不存在。已停止该服务以节省系统资源。需要重新部署看板代码或移除该服务配置。",
+  "details": {
+    "service": "kanban-board.service",
+    "expected_path": "/root/.openclaw/workspace/kanban-board",
+    "restart_attempts": 8700,
+    "action_taken": "stopped_and_disabled",
+    "dashboard_url": "http://101.132.81.50:8081/"
+  },
+  "recommendation": "重新部署看板仪表盘代码，或如不再需要，删除 systemd 服务文件",
+  "files": [
+    "/etc/systemd/system/kanban-board.service"
+  ]
+}

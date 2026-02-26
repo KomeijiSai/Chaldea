@@ -1,0 +1,20 @@
+{
+  "columns": {
+    "todo": [
+      "[Blog] 记录旅行游记 App 本周开发进度",
+      "[Research] 调研旅行游记竞品的核心功能差异",
+      "[Research] 分析 AI 变现案例 - 寻找可复制的模式"
+    ],
+    "in_progress": [
+      "[Blog] 起草「独立开发者 iOS App 上架全流程」文章大纲"
+    ],
+    "done": [
+      "[iOS-TravelApp] 实现游记详情页面 UI 和数据展示",
+      "[iOS-TravelApp] 添加照片上传和管理功能",
+      "[SleepApp] 设计 App 架构和数据模型",
+      "[Steam-Game] 完成 Godot 4 庺础教程第3章"
+    ]
+  },
+  "created_at": "2026-02-26T05:00:00+08:00",
+  "updated_at": "2026-02-26T05:45:00+08:00"
+}
