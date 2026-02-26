@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-02-26T12:45:00+08:00",
+  "checkType": "cron_scheduled",
+  "results": {
+    "gateway": {
+      "status": "healthy",
+      "pid": 101189,
+      "uptime": "1d+"
+    },
+    "disk": {
+      "status": "healthy",
+      "usage": "26%",
+      "used": "9.7G",
+      "total": "40G"
+    },
+    "memory": {
+      "status": "warning",
+      "usage": "70%",
+      "used": "1308MB",
+      "total": "1870MB",
+      "note": "稍高但正常范围"
+    },
+    "todoist": {
+      "status": "healthy",
+      "api": "v1",
+      "note": "API 正常响应"
+    },
+    "kanban": {
+      "status": "error",
+      "issue": "服务脚本丢失",
+      "file": "kanban-server.py 不存在",
+      "impact": "非关键 - 仅为监控界面"
+    },
+    "browser": {
+      "status": "healthy",
+      "processes": 6,
+      "note": "Chromium 进程正常"
+    }
+  },
+  "summary": {
+    "critical": 0,
+    "warning": 1,
+    "healthy": 5,
+    "overall": "healthy_with_minor_issues"
+  },
+  "actions": [
+    {
+      "type": "info",
+      "message": "看板服务脚本丢失，需重建（非紧急）"
+    }
+  ],
+  "needsNotification": false
+}

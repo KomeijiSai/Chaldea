@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-02-26T12:30:00+08:00",
+  "checks": {
+    "gateway": {
+      "status": "healthy",
+      "pid": 101189,
+      "running": true,
+      "warnings": ["dingtalk plugin id mismatch"]
+    },
+    "disk": {
+      "status": "healthy",
+      "used_percent": 26,
+      "available_gb": 28
+    },
+    "memory": {
+      "status": "healthy",
+      "used_percent": 72,
+      "available_mb": 588,
+      "note": "Slightly high but acceptable"
+    },
+    "todoist": {
+      "status": "healthy",
+      "api_accessible": true
+    },
+    "proxy": {
+      "status": "unhealthy",
+      "note": "Remote proxy server unreachable"
+    }
+  },
+  "overall": "healthy",
+  "issues": ["Proxy service unavailable (non-critical)"],
+  "actions_required": false
+}

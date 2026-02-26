@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-02-26T13:30:56+08:00",
+  "status": "healthy",
+  "checks": {
+    "gateway": {
+      "status": "ok",
+      "response": true
+    },
+    "disk": {
+      "status": "ok",
+      "usage_percent": 26,
+      "used": "9.7G",
+      "total": "40G"
+    },
+    "memory": {
+      "status": "warning",
+      "used": "1.3Gi",
+      "total": "1.8Gi",
+      "usage_percent": 72
+    },
+    "load": {
+      "status": "ok",
+      "load_average": [0.00, 0.00, 0.05]
+    }
+  },
+  "warnings": [
+    "DingTalk connection health check failed - detected disconnection (may be temporary)",
+    "HuggingFace models discovery failed - using static catalog fallback"
+  ],
+  "action_required": false
+}

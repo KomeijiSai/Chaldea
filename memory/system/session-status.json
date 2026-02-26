@@ -1,0 +1,13 @@
+{
+  "status": "active",
+  "lastCheck": "2026-02-26T14:00:00+08:00",
+  "checkType": "cron_health_check",
+  "health": {
+    "gateway": "healthy",
+    "disk": "26%",
+    "memory": "67%",
+    "processes": "running"
+  },
+  "message": "系统健康检查通过",
+  "issues": []
+}

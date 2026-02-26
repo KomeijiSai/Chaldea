@@ -40,6 +40,92 @@
         "memory_usage": "72%",
         "gateway_status": "running"
       }
+    },
+    {
+      "timestamp": "2026-02-26T12:30:00+08:00",
+      "overall": "healthy",
+      "trigger": "cron",
+      "checks": [
+        "gateway",
+        "disk",
+        "memory",
+        "todoist",
+        "browser",
+        "proxy"
+      ],
+      "details": {
+        "disk_usage": "26%",
+        "memory_usage": "72%",
+        "gateway_status": "running (pid 101189)",
+        "browser_processes": 5,
+        "proxy": "unreachable (non-critical)"
+      },
+      "warnings": [
+        "dingtalk plugin id mismatch (non-critical)"
+      ],
+      "auto_recovery": {
+        "triggered": false
+      }
+    },
+    {
+      "timestamp": "2026-02-26T13:21:20+08:00",
+      "overall": "healthy",
+      "trigger": "cron",
+      "checks": [
+        "gateway",
+        "disk",
+        "memory",
+        "browser",
+        "proxy"
+      ],
+      "details": {
+        "disk_usage": "26%",
+        "disk_free": "28G",
+        "memory_usage": "69%",
+        "gateway_status": "running (pid 131616)",
+        "gateway_health": "passed",
+        "browser_processes": 8,
+        "proxy": "unreachable (non-critical)"
+      },
+      "auto_recovery": {
+        "triggered": false,
+        "reason": "system healthy, no issues detected"
+      },
+      "notification": {
+        "sent": false,
+        "reason": "no critical issues"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T13:55:00+08:00",
+      "overall": "healthy",
+      "trigger": "cron",
+      "checks": [
+        "gateway",
+        "disk",
+        "memory",
+        "todoist",
+        "browser"
+      ],
+      "details": {
+        "disk_usage": "26%",
+        "memory_usage": "69%",
+        "gateway_status": "running (pid 101189)",
+        "gateway_health": "passed",
+        "browser_processes": 8,
+        "todoist": "connected"
+      },
+      "warnings": [
+        "dingtalk plugin id mismatch (non-critical)"
+      ],
+      "auto_recovery": {
+        "triggered": false,
+        "reason": "all systems healthy"
+      },
+      "notification": {
+        "sent": false,
+        "reason": "no critical issues"
+      }
     }
   ]
 }

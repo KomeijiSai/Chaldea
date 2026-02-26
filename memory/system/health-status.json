@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-26T12:15:00+08:00",
+  "timestamp": "2026-02-26T13:45:40+08:00",
   "overall": "healthy",
   "checks": {
     "gateway": "healthy",
@@ -16,24 +16,29 @@
     "memory": {
       "used_gb": 1.3,
       "total_gb": 1.8,
-      "usage_percent": 72
+      "usage_percent": 72,
+      "available_mb": 565
     },
     "gateway": {
       "port": 18789,
       "status": "running",
+      "pid": 101189,
       "dashboard": "accessible"
     },
     "browser": {
-      "processes": 5,
+      "processes": 8,
       "status": "running"
     }
   },
   "hostname": "iZuf69osue8yua3p2n20f8Z",
   "check_type": "cron",
+  "warnings": [
+    "dingtalk plugin id mismatch (minor, non-blocking)"
+  ],
   "notes": [
-    "Gateway running on port 18789",
+    "Gateway running on port 18789 (pid 101189)",
     "Disk usage at 26% (healthy)",
     "Memory usage at 72% (acceptable)",
-    "Browser automation processes active"
+    "Browser automation processes active (8 processes)"
   ]
 }
