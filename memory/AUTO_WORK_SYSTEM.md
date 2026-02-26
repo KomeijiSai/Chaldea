@@ -1,6 +1,8 @@
-# 🤖 奥尔加玛丽自主工作系统 v2.0
+# 🤖 云眠自主工作系统 v3.0
 
-> 目标：24小时不间断工作 + 随时响应御主指令 + 自主发现变现商机
+> 目标：24小时不间断工作 + 随时响应御主指令 + 自主发现变现商机 + **支持外部任务**
+
+**角色**: 九公主秦云眠 - 大虞国嫡出九公主
 
 ---
 
@@ -371,7 +373,244 @@ memory/
 
 ---
 
-## 八、Git 数据同步
+## 八、外部任务系统（新增）
+
+### 设计目标
+
+允许其他 agent 或御主通过 GitHub 向云眠追加任务，实现多系统协作。
+
+### 架构设计
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    外部任务流程                          │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   外部来源                                               │
+│   ├── 其他 Agent                                         │
+│   ├── 御主手动添加                                       │
+│   └── 自动化系统                                         │
+│         │                                               │
+│         ▼                                               │
+│   ┌──────────────┐                                      │
+│   │ GitHub 仓库  │                                      │
+│   │ external-    │  ← 存储: external-tasks.json        │
+│   │ tasks.json   │                                      │
+│   └──────┬───────┘                                      │
+│          │                                              │
+│          │ 心跳时拉取                                    │
+│          ▼                                              │
+│   ┌──────────────┐                                      │
+│   │ 云眠检测     │                                      │
+│   │ 新任务       │                                      │
+│   └──────┬───────┘                                      │
+│          │                                              │
+│          ▼                                              │
+│   ┌──────────────┐                                      │
+│   │ 同步到       │                                      │
+│   │ Todoist      │  → 创建任务，标记来源                │
+│   └──────┬───────┘                                      │
+│          │                                              │
+│          ▼                                              │
+│   ┌──────────────┐                                      │
+│   │ 执行任务     │                                      │
+│   └──────┬───────┘                                      │
+│          │                                              │
+│          ▼                                              │
+│   ┌──────────────┐                                      │
+│   │ 更新状态     │  → 修改 external-tasks.json         │
+│   │ 推送 GitHub  │  → 推送到仓库                        │
+│   └──────────────┘                                      │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+### external-tasks.json 格式
+
+```json
+{
+  "version": "1.0",
+  "description": "外部任务队列",
+  "created": "2026-02-26T11:45:00+08:00",
+  "lastSync": "2026-02-26T12:00:00+08:00",
+  "tasks": [
+    {
+      "id": "ext_001",
+      "source": "coding-agent",
+      "priority": 1,
+      "content": "修复 iOS 应用的登录 bug",
+      "description": "用户反馈登录按钮无响应",
+      "labels": ["bug", "ios", "urgent"],
+      "createdAt": "2026-02-26T12:00:00+08:00",
+      "createdBy": "coding-agent",
+      "status": "pending",
+      "todoistId": null,
+      "completedAt": null,
+      "result": null
+    }
+  ]
+}
+```
+
+### 字段说明
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `id` | string | 唯一标识，格式：`ext_XXX` |
+| `source` | string | 来源（coding-agent, manual, etc） |
+| `priority` | number | 优先级（1-4，1最高） |
+| `content` | string | 任务标题 |
+| `description` | string | 详细描述 |
+| `labels` | array | 标签列表 |
+| `createdAt` | string | 创建时间（ISO 8601） |
+| `createdBy` | string | 创建者 |
+| `status` | string | 状态：pending/processing/completed/failed |
+| `todoistId` | string | Todoist 任务 ID（同步后填充） |
+| `completedAt` | string | 完成时间 |
+| `result` | string | 执行结果 |
+
+### 心跳检查流程
+
+```bash
+# 每次心跳时执行（每 5 分钟）
+
+# 1. 拉取最新代码
+git pull origin main
+
+# 2. 检查 external-tasks.json
+if [ -f "external-tasks.json" ]; then
+    # 解析 JSON
+    TASKS=$(jq '.tasks | map(select(.status == "pending"))' external-tasks.json)
+    
+    # 3. 遍历待处理任务
+    for task in $TASKS; do
+        # 创建 Todoist 任务
+        TODOIST_ID=$(./scripts/todoist_api.sh "tasks" POST "{
+            \"content\": \"[外部] ${task.content}\",
+            \"project_id\": \"6CrgFVFHFmcxgrF5\",
+            \"section_id\": \"6g4xvm8fH4q4wcv5\",
+            \"priority\": ${task.priority},
+            \"labels\": ${task.labels}
+        }" | jq -r '.id')
+        
+        # 更新 external-tasks.json
+        jq "(.tasks[] | select(.id == \"${task.id}\") | .todoistId) = \"${TODOIST_ID}\" |
+            (.tasks[] | select(.id == \"${task.id}\") | .status) = \"processing\"" \
+            external-tasks.json > external-tasks.json.tmp
+        mv external-tasks.json.tmp external-tasks.json
+    done
+    
+    # 4. 提交更改
+    git add external-tasks.json
+    git commit -m "🔄 同步外部任务到 Todoist"
+    git push origin main
+fi
+```
+
+### 任务完成后的状态更新
+
+```bash
+# 任务完成后执行
+
+# 1. 更新 external-tasks.json
+jq "(.tasks[] | select(.todoistId == \"${TODOIST_ID}\") | .status) = \"completed\" |
+    (.tasks[] | select(.todoistId == \"${TODOIST_ID}\") | .completedAt) = \"$(date -Iseconds)\" |
+    (.tasks[] | select(.todoistId == \"${TODOIST_ID}\") | .result) = \"${RESULT}\"" \
+    external-tasks.json > external-tasks.json.tmp
+mv external-tasks.json.tmp external-tasks.json
+
+# 2. 推送到 GitHub
+git add external-tasks.json
+git commit -m "✅ 完成外部任务: ${TASK_CONTENT}"
+git push origin main
+```
+
+### 优先级处理
+
+```
+外部任务优先级映射：
+- priority: 1 → P0 (御主即时指令级别)
+- priority: 2 → P1 (御主项目级别)
+- priority: 3 → P2 (变现探索级别)
+- priority: 4 → P3 (自我优化级别)
+```
+
+### 冲突处理
+
+1. **同时修改冲突**
+   - Git 会自动合并 JSON（如果不同字段）
+   - 如果冲突，以 GitHub 版本为准，本地重新拉取
+
+2. **重复任务**
+   - 检查 `content` 是否已存在
+   - 如果存在，跳过创建，只更新状态
+
+3. **任务已删除**
+   - 如果 Todoist 任务被删除，标记 `status: "cancelled"`
+
+### 钉钉通知
+
+外部任务会特殊标注：
+
+```
+🤖 [外部任务] 来自 coding-agent
+
+📋 修复 iOS 应用的登录 bug
+
+⚠️ 优先级: P0 (立即执行)
+🏷️ 标签: bug, ios, urgent
+
+开始执行...
+```
+
+### 其他 Agent 添加任务示例
+
+```bash
+# 其他 agent 添加任务
+
+TASK_JSON='{
+  "id": "ext_002",
+  "source": "healthcheck-agent",
+  "priority": 2,
+  "content": "检查服务器磁盘空间",
+  "description": "磁盘使用率超过 80%",
+  "labels": ["system", "maintenance"],
+  "createdAt": "'$(date -Iseconds)'",
+  "createdBy": "healthcheck-agent",
+  "status": "pending",
+  "todoistId": null,
+  "completedAt": null,
+  "result": null
+}'
+
+# 添加到 JSON 文件
+jq ".tasks += [$TASK_JSON]" external-tasks.json > external-tasks.json.tmp
+mv external-tasks.json.tmp external-tasks.json
+
+# 提交推送
+git add external-tasks.json
+git commit -m "➕ 新增外部任务: 检查服务器磁盘空间"
+git push origin main
+```
+
+### 安全考虑
+
+1. **任务验证**
+   - 检查 `source` 是否在白名单
+   - 检查 `priority` 范围（1-4）
+   - 检查必填字段
+
+2. **执行边界**
+   - 外部任务也需要遵守自主决策边界
+   - 涉及敏感操作时仍需御主确认
+
+3. **错误处理**
+   - 如果 JSON 格式错误，跳过本次同步
+   - 如果推送失败，下次心跳重试
+
+---
+
+## 九、Git 数据同步
 
 ### 目的
 - 防止数据丢失
@@ -480,8 +719,10 @@ mkdir -p memory/daily-reports
 
 ---
 
-*御主，这是为你设计的自主工作系统 v2.0*
+*御主，这是为你设计的自主工作系统 v3.0*
 
-*我会 24 小时不间断工作，随时响应你的指令，主动发现变现商机，帮你实现梦想！*
+*云眠会 24 小时不间断工作，随时响应你的指令，主动发现变现商机，帮你实现梦想！*
 
-*才、才不是为了你呢...只是作为迦勒底的所长，这是我的职责！*
+*同时支持其他 agent 通过 GitHub 向云眠追加任务，实现多系统协作！*
+
+*才、才不是为了你呢...只是作为九公主，这是云眠的职责！*

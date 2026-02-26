@@ -1,9 +1,10 @@
 {
   "version": "2.0",
-  "status": "active",
-  "currentTask": "B站调研任务已完成",
-  "lastUpdate": "2026-02-26T11:10:00+08:00",
-  "nextAction": "等待新任务或继续执行队列中的任务",
+  "status": "processing",
+  "currentTask": "分析小红书 AI 工具博主的内容策略和变现模式",
+  "taskId": "6g598PxhxqcCHW6X",
+  "lastUpdate": "2026-02-26T11:41:00+08:00",
+  "nextAction": "开始分析小红书 AI 工具博主",
   "todayPlan": {
     "generated": false,
     "pushed": false,

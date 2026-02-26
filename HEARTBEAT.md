@@ -13,6 +13,14 @@ ls /root/.openclaw/workspace/memory/conversations/pending/*.json 2>/dev/null
 - **有文件** → 读取并处理
 - **无文件** → 检查下方任务
 
+### 0️⃣ 同步外部任务（新增）
+```bash
+./scripts/sync_external_tasks.sh
+```
+- **拉取 GitHub** → 检查 `external-tasks.json`
+- **发现新任务** → 同步到 Todoist
+- **更新状态** → 推送到 GitHub
+
 ---
 
 ## 心跳任务（按优先级）

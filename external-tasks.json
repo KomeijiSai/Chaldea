@@ -1,0 +1,7 @@
+{
+  "version": "1.0",
+  "description": "外部任务队列 - 供其他 agent 或御主追加任务",
+  "created": "2026-02-26T11:45:00+08:00",
+  "lastSync": null,
+  "tasks": []
+}
