@@ -3,5 +3,25 @@
   "description": "外部任务队列 - 供其他 agent 或御主追加任务",
   "created": "2026-02-26T11:45:00+08:00",
   "lastSync": null,
-  "tasks": []
+  "tasks": [
+    {
+      "id": "ext_001",
+      "source": "manual",
+      "priority": 3,
+      "content": "探索生成自拍的最佳方式",
+      "description": "研究 AI 生成自拍的技术方案，包括：1) 可用的 AI 服务对比（Leonardo.ai、Midjourney、Stable Diffusion 等）2) 提示词优化策略 3) 风格一致性保持 4) 批量生成流程",
+      "labels": [
+        "探索",
+        "AI生成",
+        "自拍",
+        "研究"
+      ],
+      "createdAt": "2026-02-26T12:26:50+08:00",
+      "createdBy": "御主",
+      "status": "pending",
+      "todoistId": null,
+      "completedAt": null,
+      "result": null
+    }
+  ]
 }
