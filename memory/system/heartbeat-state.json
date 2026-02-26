@@ -8,19 +8,20 @@
     "health": "2026-02-26T11:45:17+08:00"
   },
   "lastHealthCheck": {
-    "timestamp": "2026-02-26T11:45:17+08:00",
+    "timestamp": "2026-02-26T12:06:59+08:00",
     "overall": "healthy",
     "noActionRequired": true,
     "details": {
       "gateway": "healthy",
-      "disk": "healthy",
-      "memory": "healthy",
-      "todoist": "healthy"
+      "disk": "healthy (26% used)",
+      "memory": "healthy (1.3GB/1.8GB used, 538MB available)",
+      "todoist": "healthy",
+      "pendingConversations": 0
     }
   },
   "autoRecovery": {
     "triggered": false,
-    "reason": "All systems healthy - cron health check passed at 11:45"
+    "reason": "All systems healthy - cron health check passed at 12:06"
   },
   "taskQueueCheck": {
     "timestamp": "2026-02-26T10:25:39+08:00",

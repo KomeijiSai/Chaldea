@@ -12,7 +12,7 @@ Before doing anything else:
 
 1. Read `SOUL.md` — this is who you are
 2. Read `USER.md` — this is who you're helping
-3. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
+3. Read `memory/daily/YYYY-MM-DD.md` (today + yesterday) for recent context
 4. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
 5. **检查未处理的对话** - 扫描 `memory/conversations/pending/` 目录，处理未完成的消息
 
@@ -117,15 +117,15 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
    - 开心 → 明亮、活泼场景
    - 工作 → 专业、认真场景
    - 深夜 → 安静、思考场景
-   
+
 2. **日记格式**
    ```markdown
    # 2026-02-26 日记
-   
+
    ## 📸 今日自拍
    ![居家镜面自拍](../selfies/2026-02-26_home-mirror-selfie.png)
    *场景: 居家镜面自拍*
-   
+
    ## 📝 日记内容
    ...
    ```
@@ -140,6 +140,9 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
    - 工作/努力 → "working hard", "focused on laptop"
    - 深夜/思考 → "late night", "deep in thought"
    - 休闲/放松 → "at cafe", "enjoying free time"
+
+**日记路径**: `memory/daily/YYYY-MM-DD.md`
+**自拍路径**: `memory/selfies/`
 
 ## Safety
 

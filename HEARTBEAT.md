@@ -36,6 +36,14 @@ cat /root/.openclaw/workspace/memory/current-state.json
 - 有进行中的任务 → 继续执行
 - 任务阻塞 → 钉钉汇报
 
+### 3️⃣ 检查系统状态
+```bash
+cat /root/.openclaw/workspace/memory/system/health-status.json
+cat /root/.openclaw/workspace/memory/system/kanban.json
+```
+- 查看系统健康状态
+- 查看看板状态
+
 ### 3️⃣ 检查 Todoist 进行中任务
 - 有 P0/P1 任务 → 推进
 - 有阻塞的任务 → 尝试解决或汇报
