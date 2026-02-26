@@ -1,0 +1,11 @@
+{
+  "lastCompletedTask": null,
+  "lastHeartbeat": null,
+  "currentTask": null,
+  "pendingActions": [],
+  "contextSnapshot": {
+    "todoistCount": 0,
+    "externalTasksPending": 0,
+    "lastSync": null
+  }
+}
