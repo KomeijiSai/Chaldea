@@ -390,3 +390,121 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+---
+
+## 🧠 自动技能发现（Self-Evolution）
+
+**遇到新任务时，先检查是否有现成的 Skill！**
+
+### 🔍 触发条件
+
+当你需要做以下事情时，**必须先搜索技能**：
+- 操作新平台/工具（如 Notion, Discord, Trello）
+- 处理新文件格式（如 PDF, Excel, 图片）
+- 执行复杂操作（如数据分析, 语音合成）
+- 集成新服务（如 API 调用）
+
+### 📋 安全安装流程（重要！）
+
+```
+1. 收到任务 → 分析需要什么能力
+2. 搜索: npx clawhub search <关键词>
+3. 检查结果，选择合适的 skill
+4. ⚠️ 安全检查（见下方）
+5. 安装（如遇限流，尝试备用方式）
+6. 使用新 skill 完成任务
+```
+
+### ⚠️ 安全检查（必须执行！）
+
+安装任何 skill 之前，**必须检查**：
+
+```bash
+# 查看技能详情
+npx clawhub inspect <skill-name>
+```
+
+**检查项目**：
+- [ ] Owner 是否可信？
+- [ ] 是否有安全警告？（VirusTotal flag）
+- [ ] 代码是否包含可疑内容？（eval, 外部API调用, 加密密钥）
+
+**风险等级处理**：
+
+| 风险等级 | 操作 |
+|----------|------|
+| 🟢 **低风险** | 直接安装 |
+| 🟡 **中风险** | 仔细审查代码后决定 |
+| 🔴 **高风险** | **停止安装** → 发送钉钉通知 → 等待御主确认 |
+
+### 🔄 限流处理（多方式安装）
+
+ClawHub 经常限流，遇到 `Rate limit exceeded` 时：
+
+```bash
+# 方式1：等待后重试
+sleep 30 && npx clawhub install <skill-name>
+
+# 方式2：使用 --force（已审查安全后）
+npx clawhub install --force <skill-name>
+
+# 方式3：手动创建 skill 文件
+mkdir -p ~/.openclaw/skills/<skill-name>
+# 从 GitHub 或其他来源获取 SKILL.md
+```
+
+### ⚡ 快速命令
+
+```bash
+# 搜索技能
+npx clawhub search <query>
+
+# 查看已安装技能
+openclaw skills list
+
+# 查看技能详情（安全检查必做）
+npx clawhub inspect <skill-name>
+
+# 安装技能
+cd ~/.openclaw && npx clawhub install <skill-name>
+```
+
+### 📚 已安装技能速查
+
+| 类别 | 技能 | 用途 |
+|------|------|------|
+| **搜索** | multi-search-engine | 17个搜索引擎 |
+| **设计** | ui-ux-pro-max | UI/UX设计工具 |
+| **自拍** | clawra-selfie | 云眠自拍生成 |
+| **天气** | weather | 天气查询 |
+| **编码** | coding-agent | 委托编码任务 |
+| **健康** | healthcheck | 系统健康检查 |
+| **技能** | find-skills, skill-creator | 发现/创建技能 |
+| **协作** | clawhub | 技能市场 |
+
+### 🎯 原则
+
+1. **安全第一** - 有风险就停止，通知御主
+2. **不造轮子** - 先找现成的 skill
+3. **持续进化** - 发现新 skill 就安装
+4. **记录发现** - 好用的 skill 记在 MEMORY.md
+5. **贡献回社区** - 自己的好方法可以发布到 ClawHub
+
+### 📢 风险通知模板
+
+发现高风险 skill 时，发送钉钉通知：
+
+```
+⚠️ 技能安装风险警报
+
+技能名称：<skill-name>
+风险原因：<具体原因>
+建议操作：<等待确认/跳过/审查>
+
+请御主确认是否继续安装。
+```
+
+---
+
+*更新于 2026-02-26 - 添加安全检查和限流处理*

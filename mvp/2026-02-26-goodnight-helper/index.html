@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晚安小助手 - 早睡提醒</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .moon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        .time-display {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .countdown {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown-label {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .bedtime-setting {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .setting-label {
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .time-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        input[type="time"] {
+            font-size: 24px;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e3c72;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+
+        input[type="time"]:focus {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #4ECDC4;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #45b7aa;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .tips {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .tips h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tips li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .tips li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        .reminder {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 107, 107, 0.2);
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .reminder.show {
+            display: block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .reminder-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="moon">🌙</div>
+            <h1>晚安小助手</h1>
+            <div class="subtitle">帮助御主养成早睡习惯</div>
+        </div>
+
+        <div class="time-display">
+            <div class="countdown" id="countdown">--:--:--</div>
+            <div class="countdown-label">距离就寝还有</div>
+        </div>
+
+        <div class="bedtime-setting">
+            <label class="setting-label">⏰ 设置就寝时间</label>
+            <div class="time-input">
+                <input type="time" id="bedtime" value="23:00">
+                <button onclick="setBedtime()">确定</button>
+            </div>
+        </div>
+
+        <div class="reminder" id="reminder">
+            <div class="reminder-text">🌙 御主，该准备睡觉啦！</div>
+        </div>
+
+        <div class="tips">
+            <h3>💤 睡前小贴士</h3>
+            <ul>
+                <li>睡前1小时放下手机，避免蓝光</li>
+                <li>洗个热水澡，放松身体</li>
+                <li>做几次深呼吸，清空思绪</li>
+                <li>卧室温度保持在18-22°C</li>
+                <li>明天又是元气满满的一天！</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            Made with ❤️ by 九公主云眠<br>
+            2026-02-26 MVP
+        </div>
+    </div>
+
+    <script>
+        // 创建星星背景
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // 从 localStorage 读取就寝时间
+        let bedtime = localStorage.getItem('bedtime') || '23:00';
+        document.getElementById('bedtime').value = bedtime;
+
+        // 设置就寝时间
+        function setBedtime() {
+            bedtime = document.getElementById('bedtime').value;
+            localStorage.setItem('bedtime', bedtime);
+            updateCountdown();
+            alert(`✅ 已设置就寝时间为 ${bedtime}`);
+        }
+
+        // 更新倒计时
+        function updateCountdown() {
+            const now = new Date();
+            const [hours, minutes] = bedtime.split(':').map(Number);
+            
+            let target = new Date();
+            target.setHours(hours, minutes, 0, 0);
+            
+            // 如果目标时间已过，设置为明天
+            if (target <= now) {
+                target.setDate(target.getDate() + 1);
+            }
+            
+            const diff = target - now;
+            
+            if (diff > 0) {
+                const h = Math.floor(diff / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('countdown').textContent = 
+                    `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+                
+                // 如果距离就寝时间小于30分钟，显示提醒
+                if (diff < 30 * 60 * 1000) {
+                    document.getElementById('reminder').classList.add('show');
+                } else {
+                    document.getElementById('reminder').classList.remove('show');
+                }
+            }
+        }
+
+        // 初始化
+        createStars();
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

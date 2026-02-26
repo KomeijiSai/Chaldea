@@ -126,6 +126,80 @@
         "sent": false,
         "reason": "no critical issues"
       }
+    },
+    {
+      "timestamp": "2026-02-26T17:30:00+08:00",
+      "overall": "healthy",
+      "trigger": "cron",
+      "checks": [
+        "gateway",
+        "disk",
+        "memory",
+        "browser"
+      ],
+      "details": {
+        "disk_usage": "27%",
+        "disk_free": "28G",
+        "memory_usage": "61%",
+        "gateway_status": "running",
+        "browser_processes": 5,
+        "uptime": "2 days, 4 hours, 59 minutes",
+        "load_average": "0.00, 0.03, 0.10"
+      },
+      "auto_recovery": {
+        "triggered": false,
+        "reason": "all systems healthy"
+      },
+      "notification": {
+        "sent": false,
+        "reason": "no critical issues"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T17:35:47+08:00",
+      "overall": "healthy",
+      "trigger": "cron",
+      "checks": [
+        "gateway",
+        "disk",
+        "memory",
+        "todoist",
+        "browser"
+      ],
+      "details": {
+        "disk_usage": "27%",
+        "memory_usage": "61%",
+        "gateway_status": "running (pid 139392)",
+        "browser_processes": 8,
+        "todoist": "connected"
+      },
+      "auto_recovery": {
+        "triggered": false,
+        "reason": "all systems healthy"
+      },
+      "notification": {
+        "sent": false,
+        "reason": "no critical issues"
+      }
+    }
+    {
+      "timestamp": "2026-02-26T17:50:00+08:00",
+      "overall": "healthy",
+      "trigger": "cron",
+      "checks": ["gateway", "kanban", "disk", "memory"],
+      "details": {
+        "disk_usage": "27%",
+        "memory_usage": "61%",
+        "gateway_status": "running (pid 138292)",
+        "kanban_status": "running (pid 133782)"
+      },
+      "auto_recovery": {
+        "triggered": false,
+        "reason": "all systems healthy"
+      },
+      "notification": {
+        "sent": false,
+        "reason": "no critical issues"
+      }
     }
   ]
-}
