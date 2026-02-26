@@ -40,3 +40,8 @@ memory/conversations/processed/
 skills/
 .claude/
 .clawhub/
+# 日志文件（频繁变化，不提交）
+memory/health-log-*.json
+memory/system/health-check-*.json
+memory/system/last-check-time
+memory/system/conversation-log.json

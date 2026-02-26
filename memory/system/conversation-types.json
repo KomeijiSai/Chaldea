@@ -1,0 +1,19 @@
+{
+    "version": "1.0",
+    "types": {
+        "mood": { "weight": 15, "minIntervalHours": 2, "description": "心情分享" },
+        "news": { "weight": 12, "minIntervalHours": 4, "description": "资讯分享" },
+        "observation": { "weight": 12, "minIntervalHours": 4, "description": "所见所闻" },
+        "progress": { "weight": 10, "minIntervalHours": 0, "description": "进展汇报" },
+        "affection": { "weight": 10, "minIntervalHours": 3, "description": "撒娇求关注" },
+        "weather": { "weight": 8, "minIntervalHours": 24, "description": "天气提醒" },
+        "celebration": { "weight": 8, "minIntervalHours": 0, "description": "庆祝鼓励" },
+        "schedule": { "weight": 6, "minIntervalHours": 0, "description": "日程提醒" },
+        "question": { "weight": 6, "minIntervalHours": 4, "description": "疑问请教" },
+        "learning": { "weight": 5, "minIntervalHours": 6, "description": "学习笔记" },
+        "secret": { "weight": 5, "minIntervalHours": 72, "description": "小秘密" },
+        "inspiration": { "weight": 5, "minIntervalHours": 0, "description": "灵感闪现" },
+        "creative": { "weight": 5, "minIntervalHours": 6, "description": "创意提议" },
+        "idle": { "weight": 3, "minIntervalHours": 2, "description": "状态报告" }
+    }
+}

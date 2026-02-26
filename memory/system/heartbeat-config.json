@@ -1,0 +1,10 @@
+{
+    "version": "1.0",
+    "enabled": true,
+    "silentMode": false,
+    "maxDailyConversations": 10,
+    "intervalStrategy": { "activeTask": 30, "normal": 120, "idle": 180, "waiting": 60, "night": 360 },
+    "nightHours": { "start": 23, "end": 7 },
+    "notifyOn": { "taskComplete": true, "discovery": true, "issue": true, "emergency": true },
+    "silentOn": { "heartbeatOk": true, "smallTaskComplete": true }
+}
