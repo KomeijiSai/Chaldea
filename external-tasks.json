@@ -18,10 +18,10 @@
       ],
       "createdAt": "2026-02-26T12:26:50+08:00",
       "createdBy": "御主",
-      "status": "processing",
+      "status": "completed",
       "todoistId": "6g59RGWGCpPqmhv5",
-      "completedAt": null,
-      "result": null
+      "completedAt": "2026-02-26T17:06:49+08:00",
+      "result": "已完成"
     }
   ]
 }
