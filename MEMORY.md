@@ -61,6 +61,7 @@
 ├── USER.md                      # 用户信息 ⭐
 ├── TOOLS.md                     # 工具说明 ⭐
 ├── IDENTITY.md                  # 身份 ⭐
+├── README.md                    # 仓库说明 ⭐
 ├── EXTERNAL_TASKS_GUIDE.md      # 外部任务指南
 └── external-tasks.json          # 外部任务队列 ⭐
 ```
@@ -69,15 +70,34 @@
 
 ```
 memory/
+├── core/                    # 核心系统文档 ⭐
+│   ├── AUTO_WORK_SYSTEM.md
+│   ├── SYSTEM_ROBUSTNESS.md
+│   ├── TASK_GENERATION.md
+│   ├── TODOIST_RULES.md
+│   └── DIARY_SELFIE_SYSTEM.md
+│
+├── evolution/               # 进化日记 ⭐
+│   ├── EVOLUTION_DIARY.md
+│   └── session-tracking.md
+│
 ├── daily/                   # 每日记录
 │   └── YYYY-MM-DD.md
+│
 ├── research/                # 调研文档
 │   ├── IMAGE_API_COMPARISON.md
 │   └── ...
+│
+├── guides/                  # 指南文档
+│   ├── recommended-skills.md
+│   ├── software-dev-skills.md
+│   └── daily-task-generator.md
+│
 ├── system/                  # 系统状态
 │   ├── health-status.json
 │   ├── kanban.json
 │   └── heartbeat-state.json
+│
 ├── conversations/           # 对话记录
 ├── selfies/                 # 自拍相册
 └── opportunities/           # 商机库
@@ -87,6 +107,11 @@ archive/
 │   └── YYYY-MM-DD/
 ├── outdated/                # 过期文档
 └── inactive/                # 长期未关注（30天+）
+
+docs/
+└── planning/                # 规划文档
+    ├── DIRECTORY_RESTRUCTURE_PLAN.md
+    └── MD_RESTRUCTURE_PLAN.md
 ```
 
 ### 归档规则
@@ -95,7 +120,7 @@ archive/
 2. **过期文档** → `archive/outdated/`
 3. **长期未关注** → `archive/inactive/`
 
-详见：`README.md` 和 `DIRECTORY_RESTRUCTURE_PLAN.md`
+详见：`README.md` 和 `docs/planning/DIRECTORY_RESTRUCTURE_PLAN.md`
 
 ## 工具配置
 

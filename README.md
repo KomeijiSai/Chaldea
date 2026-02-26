@@ -6,15 +6,16 @@
 
 这些文件是云眠自主工作的核心，**不要移动或删除**：
 
-- `AGENTS.md` - Agent 工作规则
-- `HEARTBEAT.md` - 心跳配置
-- `MEMORY.md` - 长期记忆
-- `SOUL.md` - 人设（九公主秦云眠）
-- `USER.md` - 用户信息
-- `TOOLS.md` - 工具说明
-- `IDENTITY.md` - 身份
+- `AGENTS.md` - Agent 工作规则 ⭐
+- `HEARTBEAT.md` - 心跳配置 ⭐
+- `MEMORY.md` - 长期记忆 ⭐
+- `SOUL.md` - 人设（九公主秦云眠）⭐
+- `USER.md` - 用户信息 ⭐
+- `TOOLS.md` - 工具说明 ⭐
+- `IDENTITY.md` - 身份 ⭐
+- `README.md` - 仓库说明 ⭐
 - `EXTERNAL_TASKS_GUIDE.md` - 外部任务指南
-- `external-tasks.json` - 外部任务队列
+- `external-tasks.json` - 外部任务队列 ⭐
 
 ## 目录说明
 
@@ -23,11 +24,17 @@
 ```
 memory/
 ├── current-state.json      # 当前状态 ⭐
-├── AUTO_WORK_SYSTEM.md     # 工作系统文档 ⭐
-├── EVOLUTION_DIARY.md      # 进化日记 ⭐
-├── TASK_GENERATION.md      # 任务生成规则
-├── TODOIST_RULES.md        # Todoist 规则
-├── SYSTEM_ROBUSTNESS.md    # 系统健壮性
+│
+├── core/                   # 核心系统文档 ⭐
+│   ├── AUTO_WORK_SYSTEM.md
+│   ├── SYSTEM_ROBUSTNESS.md
+│   ├── TASK_GENERATION.md
+│   ├── TODOIST_RULES.md
+│   └── DIARY_SELFIE_SYSTEM.md
+│
+├── evolution/              # 进化日记 ⭐
+│   ├── EVOLUTION_DIARY.md
+│   └── session-tracking.md
 │
 ├── daily/                  # 每日记录
 │   └── YYYY-MM-DD.md
@@ -36,6 +43,11 @@ memory/
 │   ├── IMAGE_API_COMPARISON.md
 │   ├── API_STATUS.md
 │   └── ...
+│
+├── guides/                 # 指南文档
+│   ├── recommended-skills.md
+│   ├── software-dev-skills.md
+│   └── daily-task-generator.md
 │
 ├── system/                 # 系统状态
 │   ├── health-status.json

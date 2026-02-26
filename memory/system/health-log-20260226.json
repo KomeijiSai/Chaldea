@@ -1,87 +1,45 @@
 {
+  "date": "2026-02-26",
   "checks": [
     {
-      "timestamp": "2026-02-26T09:30:00+08:00",
+      "timestamp": "2026-02-26T12:06:59+08:00",
       "overall": "healthy",
-      "details": {
-        "gateway": "running (9h uptime)",
-        "disk": "26%",
-        "memory": "478MB available",
-        "load": "0.05 (idle)"
-      }
+      "checks": [
+        "gateway",
+        "disk",
+        "memory",
+        "todoist"
+      ]
     },
     {
-      "timestamp": "2026-02-26T09:45:18+08:00",
-      "overall": "warning",
-      "checks": {
-        "gateway": "healthy",
-        "disk": "healthy",
-        "memory": "warning",
-        "todoist": "healthy"
-      },
-      "details": {
-        "memory_available_mb": 499,
-        "memory_threshold": ">500MB for healthy",
-        "action": "Cleared system caches to free memory",
-        "recovery": "automatic_light_cleanup"
-      }
-    },
-    {
-      "timestamp": "2026-02-26T10:05:25+08:00",
+      "timestamp": "2026-02-26T12:15:00+08:00",
       "overall": "healthy",
-      "checks": {
-        "gateway": "healthy",
-        "disk": "healthy",
-        "memory": "healthy",
-        "todoist": "healthy"
-      },
-      "hostname": "iZuf69osue8yua3p2n20f8Z"
-    },
-    {
-      "timestamp": "2026-02-26T10:11:00+08:00",
-      "overall": "warning",
-      "checks": {
-        "gateway": "healthy",
-        "disk": "healthy",
-        "memory": "healthy",
-        "todoist": "healthy",
-        "kanban_dashboard": "critical"
-      },
-      "issues": [
-        {
-          "service": "kanban-board.service",
-          "status": "stopped",
-          "restart_attempts": 8700,
-          "reason": "WorkingDirectory missing",
-          "action_taken": "Service stopped and disabled"
-        }
+      "checks": [
+        "gateway",
+        "disk",
+        "memory",
+        "browser"
       ],
-      "recovery": "automatic",
-      "hostname": "iZuf69osue8yua3p2n20f8Z"
+      "details": {
+        "disk_usage": "26%",
+        "memory_usage": "72%",
+        "gateway_status": "running"
+      }
     },
     {
-      "timestamp": "2026-02-26T11:25:25+08:00",
+      "timestamp": "2026-02-26T04:20:49.695+08:00",
       "overall": "healthy",
-      "checks": {
-        "gateway": "healthy",
-        "disk": "healthy",
-        "memory": "healthy",
-        "todoist": "healthy"
-      },
-      "hostname": "iZuf69osue8yua3p2n20f8Z",
-      "cron_task": "health_check"
-    },
-    {
-      "timestamp": "2026-02-26T11:50:18+08:00",
-      "overall": "healthy",
-      "checks": {
-        "gateway": "healthy",
-        "disk": "healthy",
-        "memory": "healthy",
-        "todoist": "healthy"
-      },
-      "hostname": "iZuf69osue8yua3p2n20f8Z",
-      "cron_task": "health_check"
+      "trigger": "cron",
+      "checks": [
+        "gateway",
+        "disk",
+        "memory"
+      ],
+      "details": {
+        "disk_usage": "26%",
+        "memory_usage": "72%",
+        "gateway_status": "running"
+      }
     }
   ]
 }
