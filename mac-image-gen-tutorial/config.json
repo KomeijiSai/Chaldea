@@ -1,0 +1,47 @@
+{
+  "yunmian": {
+    "name": "九公主秦云眠",
+    "base_prompt": "九公主秦云眠，大虞国公主，清甜灵动，精致五官，古风汉服，高髻发饰，白色浅粉汉服",
+    "negative_prompt": "低画质，模糊，变形，多手指，少手指，水印，文字，畸形，扭曲，多余肢体，丑脸，多人",
+    "lora": {
+      "path": "models/loras/hanfugirl-v1-5.safetensors",
+      "scale": 1.0
+    },
+    "default_seed": 42,
+    "scenes": {
+      "work": "专注工作，现代办公室背景，认真思考，专业气质，优雅端庄",
+      "relax": "休闲放松，咖啡馆场景，轻松愉快，微笑，自然表情",
+      "celebrate": "庆祝时刻，开心微笑，活力四射，庆祝氛围，喜悦表情",
+      "meditation": "冥想静思，安静环境，平静表情，禅意氛围",
+      "daily": "日常生活，自然场景，轻松自在，真实感"
+    }
+  },
+  "quality": {
+    "high": {
+      "num_inference_steps": 40,
+      "guidance_scale": 7.5,
+      "width": 1024,
+      "height": 1024
+    },
+    "balanced": {
+      "num_inference_steps": 30,
+      "guidance_scale": 7.5,
+      "width": 1024,
+      "height": 1024
+    },
+    "fast": {
+      "num_inference_steps": 20,
+      "guidance_scale": 7.5,
+      "width": 768,
+      "height": 768
+    }
+  },
+  "ip_adapter": {
+    "path": "models/ip-adapter-plus-faceid_sd15.bin",
+    "scale": 1.0
+  },
+  "output": {
+    "base_dir": "output",
+    "naming_pattern": "{scene}_{timestamp}.png"
+  }
+}
