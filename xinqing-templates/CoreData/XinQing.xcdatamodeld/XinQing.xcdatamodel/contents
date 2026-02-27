@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" sourceLanguage="SWIFT" userDefinedModelVersionIdentifier="">
+    <entity name="MoodEntryEntity" representedClassName="MoodEntryEntity" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="moodType" attributeType="String"/>
+        <attribute name="intensity" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
+        <attribute name="tags" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
+        <attribute name="entryDescription" optional="YES" attributeType="String"/>
+        <attribute name="aiSuggestion" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="ConversationEntity" representedClassName="ConversationEntity" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="messages" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Message]"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <elements>
+        <element name="MoodEntryEntity" positionX="-63" positionY="-18" width="128" height="194"/>
+        <element name="ConversationEntity" positionX="-54" positionY="27" width="128" height="89"/>
+    </elements>
+</model>
